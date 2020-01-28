@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:minecraft_app/pages/home_page.dart';
-
+import 'dart:io';
 class SaveRecipePage extends StatefulWidget {
   @override
   _SaveRecipePageState createState() => _SaveRecipePageState();
@@ -54,14 +54,15 @@ class _SaveRecipePageState extends State<SaveRecipePage> {
                   )
                 ),
               );
-            }
-          );
-        },
+            },//builder
+          );//dialog box
+        },//onPressed
       ),
     );
   }
 
   void createJSON(String name) {
     //TODO new json file with parameter as name
+
   }
 }
