@@ -17,9 +17,8 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          FloatingActionButton.extended(
-              label: Text("Generate JSON"),
-              backgroundColor: Colors.green,
+          FlatButton(
+              child: Text("Generate JSON"),
               // TODO add route
               //onPressed: ,
             ),
@@ -27,13 +26,12 @@ class _HomePageState extends State<HomePage> {
             label: Text("Add new recipe"),
             backgroundColor: Colors.green,
             onPressed: (){
-              Navigator.push(
+              Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => RecipePage()),
               );
-            }
-            ),
-
+            },
+          ),
         ],
       )
       );
