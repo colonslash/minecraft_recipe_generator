@@ -7,6 +7,13 @@ class SaveRecipePage extends StatefulWidget {
 }
 
 class _SaveRecipePageState extends State<SaveRecipePage> {
+  final myController = TextEditingController();
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,14 +22,46 @@ class _SaveRecipePageState extends State<SaveRecipePage> {
         backgroundColor: Colors.green,
       ),
       floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          //TODO add popup to create new recipe pack, auto gen "buttons" for existing packs
-          onPressed: () {
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => HomePage()));
-          }
+        child: Icon(Icons.add),
+        backgroundColor: Colors.green,
+        //TODO add popup to create new recipe pack, auto gen "buttons" for existing packs
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context){
+              return AlertDialog(
+                content: Form(
+                  child: Column(
+                    children: <Widget>[
+                      Form(
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            hintText: 'Enter pack name',
+                          ),
+                          controller: myController,
+                        ),
+                      ),
+                      FloatingActionButton.extended(
+                        onPressed: (){
+                          createJSON(myController.text);
+                          Navigator.of(context).pop();
+                          Navigator.pushReplacement(
+                            context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+                        },
+                        label: Text('Finish'),
+                      ),
+                    ],
+                  )
+                ),
+              );
+            }
+          );
+        },
       ),
-
     );
+  }
+
+  void createJSON(String name) {
+    //TODO new json file with parameter as name
   }
 }

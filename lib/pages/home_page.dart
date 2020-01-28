@@ -15,15 +15,10 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.green,
       ),
       floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          FlatButton(
-              child: Text("Generate JSON"),
-              // TODO add route
-              //onPressed: ,
-            ),
           FloatingActionButton.extended(
-            label: Text("Add new recipe"),
+            label: Text("New recipe"),
             backgroundColor: Colors.green,
             onPressed: (){
               Navigator.pushReplacement(
