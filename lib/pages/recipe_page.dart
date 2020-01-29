@@ -30,7 +30,7 @@ class _RecipePageState extends State<RecipePage> {
           FloatingActionButton.extended(
             onPressed: (){
               //TODO save recipe in new json, add to existing json
-              Navigator.pushReplacement(
+              Navigator.push(
                   context, MaterialPageRoute(builder: (context) => SaveRecipePage()));
             },
             label: Text("Save recipe"),
