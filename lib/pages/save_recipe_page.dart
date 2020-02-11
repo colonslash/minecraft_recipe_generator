@@ -1,6 +1,8 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:minecraft_app/pages/home_page.dart';
-import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+
 class SaveRecipePage extends StatefulWidget {
   @override
   _SaveRecipePageState createState() => _SaveRecipePageState();
@@ -43,7 +45,8 @@ class _SaveRecipePageState extends State<SaveRecipePage> {
                       ),
                       FloatingActionButton.extended(
                         onPressed: (){
-                          createJSON(myController.text);
+                          genJSON(myController.text, "content");
+                          print(testOut(myController.text));
                           Navigator.of(context).pop();
                           Navigator.pushReplacement(
                             context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
@@ -61,8 +64,35 @@ class _SaveRecipePageState extends State<SaveRecipePage> {
     );
   }
 
-  void createJSON(String name) {
-    //TODO new json file with parameter as name
+  ///writing and reading to recipe.txt
+  // get protected documents directory for the app
+  Future<String> get _localPath async {
+    Directory dir = await getApplicationDocumentsDirectory();
+    print(dir.path);
+    return dir.path;
+  }
+  // new file with title $name.txt and document path
+  Future<File> _localFile(String name) async {
+    final path = await _localPath;
+    return File('$path/$name.txt');
+  }
+  // generate json inside new file
+  Future<File> genJSON (String name, String x) async {
+    final file = await _localFile(name);
+    return file.writeAsString('$x');
+  }
 
+  //test output
+  Future<String> testOut(String name) async {
+    try {
+      final file = await _localFile(name);
+      String contents = await file.readAsString();
+      print(contents);
+      final dir = Directory((await _localPath) + '/$name.txt');
+      dir.deleteSync(recursive: true);
+      return contents;
+    } catch (e) {
+      return "Output failed.";
+    }
   }
 }
