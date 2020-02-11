@@ -46,7 +46,7 @@ class _SaveRecipePageState extends State<SaveRecipePage> {
                       FloatingActionButton.extended(
                         onPressed: (){
                           genJSON(myController.text, "content");
-                          print(testOut(myController.text));
+                          testOut(myController.text);
                           Navigator.of(context).pop();
                           Navigator.pushReplacement(
                             context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
@@ -68,7 +68,6 @@ class _SaveRecipePageState extends State<SaveRecipePage> {
   // get protected documents directory for the app
   Future<String> get _localPath async {
     Directory dir = await getApplicationDocumentsDirectory();
-    print(dir.path);
     return dir.path;
   }
   // new file with title $name.txt and document path
@@ -88,8 +87,6 @@ class _SaveRecipePageState extends State<SaveRecipePage> {
       final file = await _localFile(name);
       String contents = await file.readAsString();
       print(contents);
-      final dir = Directory((await _localPath) + '/$name.txt');
-      dir.deleteSync(recursive: true);
       return contents;
     } catch (e) {
       return "Output failed.";
