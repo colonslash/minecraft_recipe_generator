@@ -45,9 +45,9 @@ class _SaveRecipePageState extends State<SaveRecipePage> {
                       ),
                       FloatingActionButton.extended(
                         onPressed: (){
-                          genJSON(myController.text, "content");
+                          genJSON(myController.text, "content of pack");
                           testOut(myController.text);
-                          Navigator.of(context).pop();
+                          Navigator.of(context).popUntil((route) => route.isFirst);
                           Navigator.pushReplacement(
                             context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
                         },
@@ -64,7 +64,7 @@ class _SaveRecipePageState extends State<SaveRecipePage> {
     );
   }
 
-  ///writing and reading to recipe.txt
+  //writing and reading to recipe.txt
   // get protected documents directory for the app
   Future<String> get _localPath async {
     Directory dir = await getApplicationDocumentsDirectory();
@@ -78,7 +78,18 @@ class _SaveRecipePageState extends State<SaveRecipePage> {
   // generate json inside new file
   Future<File> genJSON (String name, String x) async {
     final file = await _localFile(name);
-    return file.writeAsString('$x');
+    return file.writeAsString(
+        "{\n\t\"type\": \"minecraft:crafting_shaped,\n\t\"pattern\": [\n\t\t"
+        + "crafting pattern row 1" + ",\n\t\t"
+        + "crafting pattern row 2" + ",\n\t\t"
+        + "crafting pattern row 3" + ",\n\t],"
+        + "\n\t\"key\": {\n\t\t"
+        + "loop generated key String" + "\n\t},"
+        + "\n\t\"result\": {\n\t\t"
+        + "\"item\": \"(output String here)\",\n\t\t"
+        + "\"result\": \"(count String here)\""
+        + "\n\t}\n}"
+    );
   }
 
   //test output
