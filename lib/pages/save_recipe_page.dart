@@ -43,6 +43,9 @@ class _SaveRecipePageState extends State<SaveRecipePage> {
                           controller: myController,
                         ),
                       ),
+                      Padding(
+                        padding: EdgeInsets.all(5),
+                      ),
                       FloatingActionButton.extended(
                         onPressed: (){
                           genJSON(myController.text, "content of pack");
@@ -54,6 +57,7 @@ class _SaveRecipePageState extends State<SaveRecipePage> {
                         label: Text('Finish'),
                       ),
                     ],
+                    mainAxisSize: MainAxisSize.min,
                   )
                 ),
               );
