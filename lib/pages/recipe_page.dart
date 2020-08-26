@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:minecraft_app/pages/home_page.dart';
 import 'dart:io';
@@ -17,8 +18,8 @@ class _RecipePageState extends State<RecipePage> {
     myController.dispose();
     super.dispose();
   }
-  List<List<String>> itemList = [["oak", " ", " "],[" ", "diamond", " "],["dirt", " ", " "]];
-  Output output = new Output("diamond", 64);
+  List<List<String>> itemList = [[" ", " ", " "],[" ", " ", " "],[" ", " ", " "]];
+  Output output = new Output("out", 64);
 
   @override
   Widget build(BuildContext context) {
@@ -27,75 +28,82 @@ class _RecipePageState extends State<RecipePage> {
         title: Text("Create Recipe"),
         backgroundColor: Colors.green,
       ),
-      body: Image.asset('assets/grid.png'),
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          FlatButton(
-              onPressed: (){
-                Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (context) => HomePage()));
-              },
-              child: Text("Cancel"),
-              color: Colors.red,
-          ),
-          FloatingActionButton.extended(
-            onPressed: () {
-              //TODO save recipe in file
-              showDialog(
-                context: context,
-                builder: (BuildContext context){
-                  return AlertDialog(
-                    content: Form(
-                        child: Column(
-                          children: <Widget>[
-                            Form(
-                              child: TextFormField(
-                                decoration: InputDecoration(
-                                  hintText: "Recipe Name",
-                                  helperText: "Give your recipe a unique name",
-                                ),
-                                controller: myController,
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(5),
-                            ),
-                            Row(
-                              children: <Widget>[
-                                FlatButton(
-                                  onPressed: (){
-                                    Navigator.pop(context);
-                                  },
-                                  child: Text("Cancel"),
-                                  color: Colors.red,
-                                ),
-                                FloatingActionButton.extended(
-                                  onPressed: (){
-                                    //genJSON(myController.text, genCraftingGrid(itemList), genCraftingKey(itemList));
-                                    testPrint(genCraftingGrid(itemList), genCraftingKey(itemList), output);
-                                    Navigator.of(context).popUntil((route) => route.isFirst);
-                                    Navigator.pushReplacement(
-                                        context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
-                                  },
-                                  label: Text('Finish'),
-                                  backgroundColor: Colors.green,
-                                ),
-                              ],
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            ),
-                          ],
-                          mainAxisSize: MainAxisSize.min,
-                        )
-                    ),
-                  );
-                },//builder
-              );//dialog box
-            },// onPressed
-            label: Text("Save Recipe"),
-            backgroundColor: Colors.green,
-          )
-        ],
+      body: Container(
+        padding: EdgeInsets.fromLTRB(5, 5, 5, 20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                FlatButton(
+                  onPressed: (){
+                    Navigator.pushReplacement(
+                        context, MaterialPageRoute(builder: (context) => HomePage()));
+                  },
+                  child: Text("Cancel"),
+                  color: Colors.red,
+                ),
+                FloatingActionButton.extended(
+                  onPressed: () {
+                    //TODO save recipe in file
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context){
+                        return AlertDialog(
+                          content: Form(
+                              child: Column(
+                                children: <Widget>[
+                                  Form(
+                                    child: TextFormField(
+                                      decoration: InputDecoration(
+                                        hintText: "Recipe Name",
+                                        helperText: "Give your recipe a unique name",
+                                      ),
+                                      controller: myController,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.all(5),
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      FlatButton(
+                                        onPressed: (){
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text("Cancel"),
+                                        color: Colors.red,
+                                      ),
+                                      FloatingActionButton.extended(
+                                        onPressed: (){
+                                          //genJSON(myController.text, genCraftingGrid(itemList), genCraftingKey(itemList));
+                                          testPrint(genCraftingGrid(itemList), genCraftingKey(itemList), output);
+                                          Navigator.of(context).popUntil((route) => route.isFirst);
+                                          Navigator.pushReplacement(
+                                              context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+                                        },
+                                        label: Text('Finish'),
+                                        backgroundColor: Colors.green,
+                                      ),
+                                    ],
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  ),
+                                ],
+                                mainAxisSize: MainAxisSize.min,
+                              )
+                          ),
+                        );
+                      },//builder
+                    );//dialog box
+                  },// onPressed
+                  label: Text("Save Recipe"),
+                  backgroundColor: Colors.green,
+                )
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
