@@ -122,6 +122,7 @@ packages:
       name: path_provider
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "1.6.14"
   path_provider_linux:
     dependency: transitive
@@ -144,6 +145,9 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3"
+=======
+    version: "1.6.0"
+>>>>>>> e5002589a40dc681ea3fae4a7d31c1328978e276
   petitparser:
     dependency: transitive
     description:
