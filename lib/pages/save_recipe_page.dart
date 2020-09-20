@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:minecraft_app/pages/home_page.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../recipe.dart';
+
 class SaveRecipePage extends StatefulWidget {
   @override
   _SaveRecipePageState createState() => _SaveRecipePageState();
@@ -48,8 +50,10 @@ class _SaveRecipePageState extends State<SaveRecipePage> {
                       ),
                       FloatingActionButton.extended(
                         onPressed: (){
-                          genJSON(myController.text, "content of pack");
-                          testOut(myController.text);
+                          String name = myController.text;
+                          //TODO implement recipe from recipe_page
+                          //genJSON(name, "content of pack");
+                          testOut(name);
                           Navigator.of(context).popUntil((route) => route.isFirst);
                           Navigator.pushReplacement(
                             context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
@@ -71,16 +75,17 @@ class _SaveRecipePageState extends State<SaveRecipePage> {
   //writing and reading to recipe.txt
   // get protected documents directory for the app
   Future<String> get _localPath async {
-    Directory dir = await getApplicationDocumentsDirectory();
+    final dir = await getApplicationDocumentsDirectory();
+    print(dir.path);
     return dir.path;
   }
   // new file with title $name.txt and document path
-  Future<File> _localFile(String name) async {
+  Future<File> _localFile(name) async {
     final path = await _localPath;
     return File('$path/$name.txt');
   }
   // generate json inside new file
-  Future<File> genJSON (String name, String x) async {
+  Future<File> genJSON (String name, Recipe x) async {
     final file = await _localFile(name);
     return file.writeAsString(
         "{\n\t\"type\": \"minecraft:crafting_shaped,\n\t\"pattern\": [\n\t\t"
@@ -90,7 +95,7 @@ class _SaveRecipePageState extends State<SaveRecipePage> {
         + "\n\t\"key\": {\n\t\t"
         + "loop generated key String" + "\n\t},"
         + "\n\t\"result\": {\n\t\t"
-        + "\"item\": \"(output String here)\",\n\t\t"
+        + "\"item\": \"minecraft:(output item String here)\",\n\t\t"
         + "\"result\": \"(count String here)\""
         + "\n\t}\n}"
     );
